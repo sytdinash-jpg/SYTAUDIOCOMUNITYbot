@@ -1,5 +1,6 @@
 import os
 import asyncio
+from aiohttp import web
 from pyrogram import Client, filters
 
 # ரகசிய எண்கள்
@@ -21,18 +22,33 @@ async def protect_audio(client, message):
         protect_content=True
     )
 
-async def start_services():
-    # 1. பாட்டை ஆன் செய்கிறது
+# Render வெப் சர்வீஸ் எரர் வராமல் தடுக்க டமி வெப் பேஜ்
+async def handle(request):
+    return web.Response(text="Bot is running perfectly!")
+
+async def main():
+    # 1. பாட்டை பின்புலத்தில் ஆன் செய்கிறது
     await app.start()
+    print("Bot started successfully!")
+
+    # 2. Render கேட்கும் PORT-ஐ ஆன் செய்கிறது
+    server = web.Application()
+    server.router.add_get('/', handle)
+    runner = web.AppRunner(server)
+    await runner.setup()
     
-    # 2. Render கேட்கும் வெப் போர்ட்டை எரர் வராமல் பின்புலத்தில் ஆன் செய்கிறது
-    os.system(f"python3 -m http.server {os.environ.get('PORT', '8080')} &")
-    
+    port = int(os.environ.get("PORT", 8080))
+    site = web.TCPSite(runner, '0.0.0.0', port)
+    await site.start()
+    print(f"Web server started on port {port}")
+
     # 3. பாட் தொடர்ந்து ஆன்லைனில் நீடிக்க லூப் செய்கிறது
-    while True:
-        await asyncio.sleep(10)
+    try:
+        while True:
+            await asyncio.sleep(3600)
+    finally:
+        await app.stop()
 
 if __name__ == "__main__":
-    # புதிய பைதான் 3.14 வெர்ஷனுக்கான லூப் செட்டிங்
-    asyncio.run(start_services())
+    asyncio.run(main())
     
