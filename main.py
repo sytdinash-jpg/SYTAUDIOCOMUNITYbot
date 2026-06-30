@@ -22,7 +22,7 @@ async def protect_audio(client, message):
         protect_content=True
     )
 
-# Render வெப் சர்வீஸ் எரர் வராமல் தடுக்க டமி வெப் பேஜ்
+# Render வெப் சர்வீஸை ஏமாற்ற ஒரு டமி வெப் பேஜ்
 async def handle(request):
     return web.Response(text="Bot is running perfectly!")
 
@@ -50,5 +50,5 @@ async def main():
         await app.stop()
 
 if __name__ == "__main__":
+    # புதிய பைதான் 3.14 வெர்ஷனுக்கான சரியான லூப் ரன் முறை
     asyncio.run(main())
-    
