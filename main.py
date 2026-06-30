@@ -1,4 +1,5 @@
 import os
+import asyncio
 from pyrogram import Client, filters
 
 # ரகசிய எண்கள்
@@ -20,7 +21,18 @@ async def protect_audio(client, message):
         protect_content=True
     )
 
-# வெப் சர்வீஸ் எரர் வராமல் தடுக்க எளிமையான முறை
+async def start_services():
+    # 1. பாட்டை ஆன் செய்கிறது
+    await app.start()
+    
+    # 2. Render கேட்கும் வெப் போர்ட்டை எரர் வராமல் பின்புலத்தில் ஆன் செய்கிறது
+    os.system(f"python3 -m http.server {os.environ.get('PORT', '8080')} &")
+    
+    # 3. பாட் தொடர்ந்து ஆன்லைனில் நீடிக்க லூப் செய்கிறது
+    while True:
+        await asyncio.sleep(10)
+
 if __name__ == "__main__":
-    app.run()
+    # புதிய பைதான் 3.14 வெர்ஷனுக்கான லூப் செட்டிங்
+    asyncio.run(start_services())
     
