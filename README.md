@@ -1,1 +1,1 @@
-# SYTAUDIOCOMUNITYbot
+Premium Audio Telegram Bot
