@@ -20,7 +20,7 @@ async def protect_audio(client, message):
         protect_content=True
     )
 
-# வெப் சர்வீஸ் எரர் வராமல் தடுக்க இந்த ஒரு வரி மிக முக்கியம்!
-os.system(f"python3 -m http.server {os.environ.get('PORT', '8080')}")
-
-app.run()
+# வெப் சர்வீஸ் எரர் வராமல் தடுக்க எளிமையான முறை
+if __name__ == "__main__":
+    app.run()
+    
