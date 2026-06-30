@@ -27,7 +27,6 @@ async def main():
         await message.delete()
 
     await app.start()
-    print("Bot started successfully!")
 
     server = web.Application()
     server.router.add_get("/", handle)
@@ -37,7 +36,6 @@ async def main():
     port = int(os.environ.get("PORT", 10000))
     site = web.TCPSite(runner, "0.0.0.0", port)
     await site.start()
-    print(f"Web server started on port {port}")
 
     try:
         while True:
